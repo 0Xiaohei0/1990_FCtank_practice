@@ -11,7 +11,6 @@ public class enemyBehavior : MonoBehaviour
     [SerializeField] float movement_speed = 3f;
     Vector2 movement;
     float z_rotation;
-    string current_direction = "";
     
 
 
@@ -27,11 +26,17 @@ public class enemyBehavior : MonoBehaviour
     [SerializeField] GameObject baseSensor;
     [SerializeField] float TurningWaitTime = 2f;
     [SerializeField] float TurningTimer = 0f;
- 
+    [SerializeField] bool baseFound = false;
+
+
+    GameObject enemySpawner;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        enemySpawner = GameObject.Find("enemySpawner");
+        enemySpawner.GetComponent<enemySpawner>().add1EnemyCount();
         getdirection();
     }
 
@@ -48,7 +53,6 @@ public class enemyBehavior : MonoBehaviour
         // if found homebase
         // keep moving and fire
         rb.position += movement * movement_speed * Time.fixedDeltaTime;
-
 
     }
 
@@ -72,32 +76,37 @@ public class enemyBehavior : MonoBehaviour
 
     public void detectObstacle(string obstacleTag)
     {
-        if (obstacleTag == "Wall" && TurningTimer == 0)
+        if ((obstacleTag == "Wall" || obstacleTag == "Enemy")  && TurningTimer == 0 && baseFound == false)
         {
             randomTurn(chanceTurnRight);//chance of turning right
         }
     }
 
+    public void detectBase()
+    {
+        baseFound = true;
+        
+    }
+
     private void randomTurn(double chanceTurnRight)
     {
+        TurningTimer = TurningWaitTime;
         getdirection();
         
         if (UnityEngine.Random.value <= chanceTurnRight)
         {
-            Debug.Log("left");
             z_rotation = transform.rotation.eulerAngles.z + 90;
         }
 
         else
         {
-            Debug.Log("right");
             z_rotation = transform.rotation.eulerAngles.z - 90;
         }
 
             
         transform.rotation = Quaternion.Euler(0, 0, z_rotation);
         getdirection();
-        TurningTimer = TurningWaitTime;
+        
     }
 
     private void getdirection()
@@ -129,6 +138,7 @@ public class enemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
+            enemySpawner.GetComponent<enemySpawner>().sub1EnemyCount();
             Destroy(gameObject);
         }
     }

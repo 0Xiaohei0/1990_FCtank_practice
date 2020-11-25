@@ -112,8 +112,10 @@ public class My_Player_control : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "EnemyBullet")
         {
+            GameObject sceneController = GameObject.Find("sceneController");
+            sceneController.GetComponent<sceneController>().SpawnPlayer();
             Destroy(gameObject);
         }
     }
