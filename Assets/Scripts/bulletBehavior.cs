@@ -7,6 +7,7 @@ public class bulletBehavior : MonoBehaviour
 {
     [SerializeField] float bulletSpeed = 20f;
     [SerializeField]  Rigidbody2D rb;
+    [SerializeField] GameObject explosion;
     Vector2 movement;
     float z_rotation;
 
@@ -53,6 +54,7 @@ public class bulletBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
         {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
         }
     private static bool CheckWithin(float x, float y, float error) => (Math.Abs(x - y) < error);

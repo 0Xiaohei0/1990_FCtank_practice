@@ -30,6 +30,7 @@ public class enemyBehavior : MonoBehaviour
 
 
     GameObject enemySpawner;
+    [SerializeField] GameObject explosion;
 
 
     // Start is called before the first frame update
@@ -139,6 +140,7 @@ public class enemyBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             enemySpawner.GetComponent<enemySpawner>().sub1EnemyCount();
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

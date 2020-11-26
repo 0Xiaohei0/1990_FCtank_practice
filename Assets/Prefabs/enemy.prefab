@@ -284,7 +284,8 @@ MonoBehaviour:
   TurningWaitTime: 0.27
   TurningTimer: 0
   baseFound: 0
-  enemySpawner: {fileID: 0}
+  explosion: {fileID: 6313266319248366849, guid: 8a3b0bcff42ddc849a6a31407c414bb0,
+    type: 3}
 --- !u!61 &7637922554208887859
 BoxCollider2D:
   m_ObjectHideFlags: 0

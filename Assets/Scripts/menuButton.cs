@@ -9,6 +9,10 @@ public class menuButton : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void quitGame()
     {
         Debug.Log("quit pressed");

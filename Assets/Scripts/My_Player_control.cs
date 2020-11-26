@@ -20,6 +20,7 @@ public class My_Player_control : MonoBehaviour
 
 
     string current_direction = "";
+    [SerializeField] GameObject explosion;
 
 
     // Start is called before the first frame update
@@ -116,6 +117,7 @@ public class My_Player_control : MonoBehaviour
         {
             GameObject sceneController = GameObject.Find("sceneController");
             sceneController.GetComponent<sceneController>().SpawnPlayer();
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

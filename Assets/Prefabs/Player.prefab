@@ -104,6 +104,8 @@ MonoBehaviour:
     type: 3}
   fire_Point: {fileID: 839948200486846953}
   FireWaitTime: 0.75
+  explosion: {fileID: 6313266319248366849, guid: 8a3b0bcff42ddc849a6a31407c414bb0,
+    type: 3}
 --- !u!50 &839948199939526327
 Rigidbody2D:
   serializedVersion: 4
@@ -175,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839948200486846953}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.008, y: 0.532, z: -1.3745275}
+  m_LocalPosition: {x: -0.003, y: 0.465, z: -1.3745275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 839948199939526320}

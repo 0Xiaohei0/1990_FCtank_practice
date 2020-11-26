@@ -98,6 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 4.8
   rb: {fileID: 657410773838854784}
+  explosion: {fileID: 6313266319248366849, guid: 8a3b0bcff42ddc849a6a31407c414bb0,
+    type: 3}
 --- !u!50 &657410773838854784
 Rigidbody2D:
   serializedVersion: 4
@@ -135,7 +137,7 @@ BoxCollider2D:
   m_Offset: {x: -0.045069598, y: -0.035574824}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.46770027, y: 0.42894062}
     oldSize: {x: 1.4285715, y: 1.4285715}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5

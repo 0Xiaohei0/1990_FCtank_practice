@@ -22,18 +22,21 @@ public class enemySpawner : MonoBehaviour
 
 
 
-    [SerializeField] GameObject UIcontrol;
+    [SerializeField] GameObject UIcontroller;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyToSpawn = totalEnemyCount;
+        UIcontroller.GetComponent<UIControl>().UpdateEnemyCountText(enemyToSpawn);
         StartCoroutine(SpawnEnemy());
         SpawnWaitTimer = enemySpawnWaitTime;
     }
 
     IEnumerator SpawnEnemy()
     {
+        enemyToSpawn--;
+        UIcontroller.GetComponent<UIControl>().UpdateEnemyCountText(enemyToSpawn);
         //UIcontrol.GetComponent<UIControl>().sub1EnemyUI();
         // instantiate notice object
         GameObject notice = Instantiate(enemyNotice, spawnPoints[currentSpawnPointIndex].transform.position, Quaternion.identity);
@@ -41,8 +44,7 @@ public class enemySpawner : MonoBehaviour
         Destroy(notice);
         // instantiate enemy object
         Instantiate(enemyTank, spawnPoints[currentSpawnPointIndex].transform.position, Quaternion.identity);
-        enemyToSpawn--;
-
+       
         //cycle currentSpawnPointIndex
         if ((currentSpawnPointIndex + 1) < (spawnPoints.Length)){
             currentSpawnPointIndex++;
@@ -71,5 +73,13 @@ public class enemySpawner : MonoBehaviour
     }
 
     public void add1EnemyCount() => currentEnemyCount++;
-    public void sub1EnemyCount() => currentEnemyCount--;
+    public void sub1EnemyCount()
+    {
+        currentEnemyCount--;
+        if (currentEnemyCount <= 0 && enemyToSpawn <= 0)
+        {
+            GameObject sceneController = GameObject.Find("sceneController");
+            sceneController.GetComponent<sceneController>().gameWon();
+        }
+    }
 }
