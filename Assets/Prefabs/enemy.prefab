@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7637922554208887856}
   enemy_Transform: {fileID: 7637922554208887857}
-  movement_speed: 1.5
+  movement_speed: 1.2
   Normal_bullet: {fileID: 4194867350458415670, guid: 92eba52535cd28b45a477ce8cbaf46a9,
     type: 3}
   fire_Point: {fileID: 7637922553980478596}

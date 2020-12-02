@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class enemySpawner : MonoBehaviour
 {
-    [SerializeField] int totalEnemyCount = 20;
+    [SerializeField] int totalEnemyCount;
     [SerializeField] float enemySpawnNoticeTime = 1f;
     [SerializeField] float enemySpawnWaitTime = 8f;
     [SerializeField] GameObject enemyNotice;
     [SerializeField] GameObject enemyTank;
+    [SerializeField] GameObject enemyTankFast;
     [SerializeField] GameObject[] spawnPoints;
+    [SerializeField] GameObject[] enemySpawnQueue;
+    [SerializeField] private int spawnindex = 0;
 
     // debug serialize
     [SerializeField] public int currentEnemyCount = 0;
@@ -27,10 +30,12 @@ public class enemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totalEnemyCount = enemySpawnQueue.Length;
         enemyToSpawn = totalEnemyCount;
         UIcontroller.GetComponent<UIControl>().UpdateEnemyCountText(enemyToSpawn);
         StartCoroutine(SpawnEnemy());
         SpawnWaitTimer = enemySpawnWaitTime;
+
     }
 
     IEnumerator SpawnEnemy()
@@ -43,8 +48,9 @@ public class enemySpawner : MonoBehaviour
         yield return new WaitForSeconds(enemySpawnNoticeTime);
         Destroy(notice);
         // instantiate enemy object
-        Instantiate(enemyTank, spawnPoints[currentSpawnPointIndex].transform.position, Quaternion.identity);
-       
+        Instantiate(enemySpawnQueue[spawnindex], spawnPoints[currentSpawnPointIndex].transform.position, Quaternion.identity);
+        spawnindex++;
+
         //cycle currentSpawnPointIndex
         if ((currentSpawnPointIndex + 1) < (spawnPoints.Length)){
             currentSpawnPointIndex++;

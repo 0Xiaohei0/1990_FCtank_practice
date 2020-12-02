@@ -24,7 +24,7 @@ public class enemyBehavior : MonoBehaviour
     [SerializeField] float chanceTurnRight = 0.5f; 
     [SerializeField] GameObject fov;
     [SerializeField] GameObject baseSensor;
-    [SerializeField] float TurningWaitTime = 2f;
+    [SerializeField] float TurningWaitTime = 0.25f;
     [SerializeField] float TurningTimer = 0f;
     [SerializeField] bool baseFound = false;
 
@@ -34,7 +34,7 @@ public class enemyBehavior : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         enemySpawner = GameObject.Find("enemySpawner");
         enemySpawner.GetComponent<enemySpawner>().add1EnemyCount();
@@ -135,7 +135,7 @@ public class enemyBehavior : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet")
         {
