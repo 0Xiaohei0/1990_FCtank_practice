@@ -13,6 +13,8 @@ public class sceneController : MonoBehaviour
     [SerializeField] int totalPlayerLife = 2;
     [SerializeField] int remainingPlayerLife = 2;
     [SerializeField] GameObject UIcontroller;
+    [SerializeField] GameObject[] items;
+    [SerializeField] float itemSpawnChance = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,5 +56,26 @@ public class sceneController : MonoBehaviour
     public void gameWon()
     {
         SceneManager.LoadScene("gameWon");
+    }
+
+    // item effects
+    public void SpawnItem(Vector3 position)
+    {
+        System.Random rnd = new System.Random();
+        if(rnd.NextDouble() <= itemSpawnChance)
+        {
+            GameObject itemToSpawn = items[rnd.Next(0, items.Length)];
+            Instantiate(itemToSpawn, position, Quaternion.identity);
+        }
+    }
+
+    public void destoryAllEnemies()
+    {
+        Debug.Log("called");
+        enemyBehavior[] enemies = FindObjectsOfType<enemyBehavior>();
+        foreach (enemyBehavior enemy in enemies)
+        {
+            enemy.selfDestruct();
+        }
     }
 }

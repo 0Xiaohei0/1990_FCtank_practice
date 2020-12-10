@@ -30,6 +30,7 @@ public class enemyBehavior : MonoBehaviour
 
 
     GameObject enemySpawner;
+    sceneController sc;
     [SerializeField] GameObject explosion;
 
 
@@ -37,6 +38,7 @@ public class enemyBehavior : MonoBehaviour
     protected virtual void Start()
     {
         enemySpawner = GameObject.Find("enemySpawner");
+        sc = FindObjectOfType<sceneController>();
         enemySpawner.GetComponent<enemySpawner>().add1EnemyCount();
         getdirection();
     }
@@ -139,10 +141,16 @@ public class enemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            enemySpawner.GetComponent<enemySpawner>().sub1EnemyCount();
-            Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            selfDestruct();
         }
+    }
+
+    public void selfDestruct()
+    {
+         enemySpawner.GetComponent<enemySpawner>().sub1EnemyCount();
+         Instantiate(explosion, transform.position, Quaternion.identity);
+         sc.SpawnItem(transform.position);
+         Destroy(gameObject);
     }
 
     private static bool CheckWithin(float x, float y, float error) => (Math.Abs(x - y) < error);
