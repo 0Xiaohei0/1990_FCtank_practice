@@ -15,11 +15,20 @@ public class sceneController : MonoBehaviour
     [SerializeField] GameObject UIcontroller;
     [SerializeField] GameObject[] items;
     [SerializeField] float itemSpawnChance = 0.5f;
+    [SerializeField] GameObject unbreakableWalls;
+    [SerializeField] float wallEnforceTime = 15f;
+    GameObject enforcableWalls;
+    GameObject enforcedWalls;
+
     // Start is called before the first frame update
     void Start()
     {
         remainingPlayerLife = totalPlayerLife;
         UIcontroller.GetComponent<UIControl>().UpdatePlayerLifeCountText(remainingPlayerLife);
+        enforcableWalls = GameObject.Find("EnforcableWalls");
+        enforcedWalls = GameObject.Find("EnforcedWalls");
+        enforcedWalls.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -71,11 +80,23 @@ public class sceneController : MonoBehaviour
 
     public void destoryAllEnemies()
     {
-        Debug.Log("called");
         enemyBehavior[] enemies = FindObjectsOfType<enemyBehavior>();
         foreach (enemyBehavior enemy in enemies)
         {
             enemy.selfDestruct();
         }
+    }
+
+    public void enforceWalls()
+    {
+        enforcableWalls.SetActive(false);
+        enforcedWalls.SetActive(true);
+        StartCoroutine(turnOffEnforce());
+    }
+    IEnumerator turnOffEnforce()
+    {
+        yield return new WaitForSeconds(wallEnforceTime);
+        enforcableWalls.SetActive(true);
+        enforcedWalls.SetActive(false);
     }
 }
